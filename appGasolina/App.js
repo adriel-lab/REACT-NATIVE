@@ -5,85 +5,79 @@ export default class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      input1: 0,
-      input2: 0,
+      n1: 0,
+      n2: 0,
       resultado: "",
-      resultado1: 0,
+      calc: 0,
     };
     
     this.calcular = this.calcular.bind(this);
   }
  
   calcular(){
-    resultado1 = this.state.input1 / this.state.input2;
-    if(this.state.input1 == this.state.input2){
+    calc = this.state.n1 / this.state.n2;
+    if(this.state.n1 == this.state.n2){
       this.setState({resultado: "Tanto faz!"});
-    } else if(resultado1 < 0.7) {
+    } else if(calc < 0.7) {
       this.setState({resultado: "Alcool"});
     } else {
       this.setState({resultado: "Gasolina"});
     }
-
   }
  
   render(){
+    let img = 'http://minaspetro.com.br/blog/wp-content/uploads/2019/01/afinal-o-que-um-dono-de-posto-de-combustivel-deve-fazer-para-ter-sucesso-770x400.jpeg';
     return(
-      <View style={styles.container}>
-        <Text style={styles.texto}>Alcool ou Gasolina ? </Text>
+      <View>
+          <View style={styles.topo}>
+		       <Text style={styles.txtTitulo}>Alcool ou Gasolina</Text>
+	        </View>
 
-        <View style={styles.imagemPosto}>
-          <Image source={require('./Gaso.png')} style={styles.imagem} />
-        </View>
+          <View>
+            <Image
+             source={{ uri: img }}
+             style={{ width: 330, height: 200, alignItems: 'center', marginTop: 20}}
+            />
+          </View>      
       
-        <TextInput style={styles.input} placeholder="Valor do Alcool: " onChangeText={input1 => {this.setState({ input1 });}} keyboardType="numeric" />
+        <TextInput style={styles.input} placeholder="Preço do Alcool" 
+        onChangeText={n1 => {this.setState({ n1 });}} keyboardType="numeric" />
 
-        <TextInput style={styles.input} placeholder="Valor da Gasolina: " onChangeText={input2 => {this.setState({ input2 });}} keyboardType="numeric" />
+        <TextInput style={styles.input} placeholder="Preço da Gasolina" 
+        onChangeText={n2 => {this.setState({ n2 });}} keyboardType="numeric" />
 
-        <View style={styles.botao}>
+        <View>
           <Button title="Verificar" onPress={this.calcular} />
         </View>
 
-        <Text style={styles.texto1}> A melhor escolha é {this.state.resultado} </Text>
+        <Text style={styles.resul}> Resultado {this.state.resultado} </Text>
       </View>
     );
   }
 }
  
 const styles = StyleSheet.create({
-  container:{
-    flex: 1,
-    marginTop: 30,
-    padding: 20,
-  },
-  imagemPosto: {
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  botao: {
-    alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  imagem: {
-    width: 200,
-    height: 200,
-  },
+  topo: {
+		backgroundColor: '#2196F3',
+		padding: 10,
+		alignItems: 'center'
+	},
+	txtTitulo: {
+		fontSize: 25,
+		color: '#FFF'
+	},
   input:{
     height: 45,
     borderWidth: 1,
-    borderColor: '#222',
     margin: 10,
     fontSize: 20,
     padding: 10,
+    flexDirection: 'row',
+		justifyContent: 'space-between'
   },
-  texto:{
+  resul:{
     textAlign: 'center',
     fontSize: 25,
-    color: '#FFB51A',
-  },
-  texto1:{
-    textAlign: 'center',
-    fontSize: 25,
-    color: '#0CD846',
+    color: '#f00',
   }
 });
